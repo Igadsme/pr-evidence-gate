@@ -1,5 +1,6 @@
 name: PR Evidence Gate - verify
 on:
+  workflow_call:
   pull_request:
     types: [opened, synchronize, reopened]
 permissions:
