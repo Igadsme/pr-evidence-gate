@@ -1,0 +1,20 @@
+version: 1
+mode: advisory
+requiredChecks:
+  - imports
+  - regression
+testFrameworks:
+  - pytest
+  - vitest
+  - jest
+linkedIssue:
+  required: false
+  acceptedLabels: []
+  requireMaintainerAssignment: false
+documentationOnlyExempt: true
+aiDisclosure:
+  required: false
+exclude: []
+limits:
+  timeoutSeconds: 600
+  maxOutputBytes: 1000000

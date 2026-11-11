@@ -1,0 +1,13 @@
+name: PR Evidence Gate - publish
+on:
+  workflow_run:
+    workflows: ["PR Evidence Gate - verify"]
+    types: [completed]
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+jobs:
+  publish:
+    uses: your-org/pr-evidence-gate/.github/workflows/publish.yml@v0.2.0
+    secrets: inherit

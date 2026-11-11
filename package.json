@@ -1,0 +1,27 @@
+{
+  "name": "pr-evidence-gate",
+  "version": "0.1.0",
+  "description": "Deterministic evidence verification for GitHub pull requests.",
+  "type": "module",
+  "bin": { "pr-evidence": "dist/src/cli.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@octokit/rest": "^21.1.0",
+    "yaml": "^2.7.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

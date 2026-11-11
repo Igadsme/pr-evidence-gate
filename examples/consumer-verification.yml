@@ -1,0 +1,11 @@
+name: PR Evidence Gate - verify
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+  actions: write
+jobs:
+  verify:
+    uses: your-org/pr-evidence-gate/.github/workflows/verify.yml@v0.2.0
+    secrets: inherit

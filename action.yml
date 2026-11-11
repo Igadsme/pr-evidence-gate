@@ -1,0 +1,15 @@
+name: PR Evidence Gate
+description: Verify deterministic evidence supporting a pull request.
+author: PR Evidence Gate maintainers
+inputs:
+  config:
+    description: Path to the repository policy file.
+    required: false
+    default: .github/contrib-policy.yml
+  mode:
+    description: Advisory or enforcement mode.
+    required: false
+    default: advisory
+runs:
+  using: node24
+  main: dist/index.js

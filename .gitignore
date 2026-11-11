@@ -1,0 +1,12 @@
+node_modules/
+dist/
+!dist/
+!dist/index.js
+!dist/src/
+!dist/src/**/*.js
+.npm-cache/
+.tmp/
+coverage/
+*.log
+.filesystem-compat-test/
+._*

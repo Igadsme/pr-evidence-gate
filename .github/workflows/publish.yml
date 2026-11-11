@@ -1,0 +1,37 @@
+name: PR Evidence Gate - publish
+on:
+  workflow_run:
+    workflows: ["PR Evidence Gate - verify"]
+    types: [completed]
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.pull_requests[0] != null }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr-evidence
+          path: .tmp/publisher-artifact
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish validated evidence card
+        env:
+          PR_EVIDENCE_MODE: publish
+          PR_EVIDENCE_ARTIFACT: .tmp/publisher-artifact/evidence.json
+          PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node dist/src/action.js
