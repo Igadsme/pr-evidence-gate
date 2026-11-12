@@ -6,6 +6,7 @@ dist/
 !dist/src/**/*.js
 .npm-cache/
 .tmp/
+.apfs-deps.sparsebundle/
 coverage/
 *.log
 .filesystem-compat-test/
