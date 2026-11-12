@@ -24,6 +24,6 @@ export async function verifyRepository(input) {
         checks.push({ kind: "linked-issue", status: "SKIPPED", summary: "Linked-issue verification requires GitHub context.", details: ["Run the publisher workflow for issue metadata checks."] });
     const policyStatus = { kind: "policy", status: "PASS", summary: `Policy loaded in ${policy.mode} mode.`, details: [`Required checks: ${policy.requiredChecks.join(", ") || "none"}`] };
     checks.push(policyStatus);
-    return parseEvidence({ schemaVersion: 1, generatedAt: new Date().toISOString(), repository: input.repository, pullRequestNumber: input.pullRequestNumber, baseSha: input.baseSha, headSha: input.headSha, verifier: { name: "pr-evidence-gate", version: "0.2.0" }, checks, limitations: ["Static checks cannot prove dynamically resolved imports or full behavioral correctness.", "Regression execution depends on repository dependencies and runner isolation."] });
+    return parseEvidence({ schemaVersion: 1, generatedAt: new Date().toISOString(), repository: input.repository, ...(input.pullRequestNumber === undefined ? {} : { pullRequestNumber: input.pullRequestNumber }), baseSha: input.baseSha, headSha: input.headSha, verifier: { name: "pr-evidence-gate", version: "0.2.0" }, checks, limitations: ["Static checks cannot prove dynamically resolved imports or full behavioral correctness.", "Regression execution depends on repository dependencies and runner isolation."] });
 }
 //# sourceMappingURL=verifier.js.map
