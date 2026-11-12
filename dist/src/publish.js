@@ -20,7 +20,10 @@ export async function publish() {
         await githubJson(token, `/repos/${owner}/${repo}/issues/${number}/comments`, "POST", { body: prepared.body });
 }
 async function githubJson(token, path, method = "GET", body) {
-    const response = await fetch(`https://api.github.com${path}`, { method, headers: { accept: "application/vnd.github+json", authorization: `Bearer ${token}`, "x-github-api-version": "2022-11-28", ...(body ? { "content-type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined });
+    const init = { method, headers: { accept: "application/vnd.github+json", authorization: `Bearer ${token}`, "x-github-api-version": "2022-11-28", ...(body ? { "content-type": "application/json" } : {}) } };
+    if (body !== undefined)
+        init.body = JSON.stringify(body);
+    const response = await fetch(`https://api.github.com${path}`, init);
     if (!response.ok)
         throw new Error(`GitHub API ${method} ${path} failed: ${response.status} ${await response.text()}`);
     return response.status === 204 ? undefined : await response.json();

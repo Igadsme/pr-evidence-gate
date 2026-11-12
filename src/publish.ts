@@ -12,7 +12,9 @@ export async function publish(): Promise<void> {
 }
 
 async function githubJson<T = unknown>(token: string, path: string, method = "GET", body?: unknown): Promise<T> {
-  const response = await fetch(`https://api.github.com${path}`, { method, headers: { accept: "application/vnd.github+json", authorization: `Bearer ${token}`, "x-github-api-version": "2022-11-28", ...(body ? { "content-type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  const init: RequestInit = { method, headers: { accept: "application/vnd.github+json", authorization: `Bearer ${token}`, "x-github-api-version": "2022-11-28", ...(body ? { "content-type": "application/json" } : {}) } };
+  if (body !== undefined) init.body = JSON.stringify(body);
+  const response = await fetch(`https://api.github.com${path}`, init);
   if (!response.ok) throw new Error(`GitHub API ${method} ${path} failed: ${response.status} ${await response.text()}`);
   return response.status === 204 ? undefined as T : await response.json() as T;
 }

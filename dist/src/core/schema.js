@@ -18,7 +18,8 @@ export function parseEvidence(input) {
         throw new Error("Invalid checks");
     if (!Array.isArray(input.limitations) || input.limitations.length > 50 || !input.limitations.every((v) => typeof v === "string"))
         throw new Error("Invalid limitations");
-    if (input.pullRequestNumber !== undefined && (!Number.isInteger(input.pullRequestNumber) || input.pullRequestNumber < 1))
+    const pullRequestNumber = input.pullRequestNumber;
+    if (pullRequestNumber !== undefined && (typeof pullRequestNumber !== "number" || !Number.isInteger(pullRequestNumber) || pullRequestNumber < 1))
         throw new Error("Invalid pullRequestNumber");
     return input;
 }

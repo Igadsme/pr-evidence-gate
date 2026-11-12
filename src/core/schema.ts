@@ -22,7 +22,8 @@ export function parseEvidence(input: unknown): Evidence {
   if (!isRecord(verifier) || verifier.name !== "pr-evidence-gate" || typeof verifier.version !== "string") throw new Error("Invalid verifier identity");
   if (!Array.isArray(input.checks) || input.checks.length > 20 || !input.checks.every(isCheckResult)) throw new Error("Invalid checks");
   if (!Array.isArray(input.limitations) || input.limitations.length > 50 || !input.limitations.every((v) => typeof v === "string")) throw new Error("Invalid limitations");
-  if (input.pullRequestNumber !== undefined && (!Number.isInteger(input.pullRequestNumber) || input.pullRequestNumber < 1)) throw new Error("Invalid pullRequestNumber");
+  const pullRequestNumber = input.pullRequestNumber;
+  if (pullRequestNumber !== undefined && (typeof pullRequestNumber !== "number" || !Number.isInteger(pullRequestNumber) || pullRequestNumber < 1)) throw new Error("Invalid pullRequestNumber");
   return input as unknown as Evidence;
 }
 
