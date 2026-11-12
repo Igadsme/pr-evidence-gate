@@ -7,5 +7,5 @@ permissions:
   actions: write
 jobs:
   verify:
-    uses: your-org/pr-evidence-gate/.github/workflows/verify.yml@v0.2.0
+    uses: Igadsme/pr-evidence-gate/.github/workflows/verify.yml@main
     secrets: inherit

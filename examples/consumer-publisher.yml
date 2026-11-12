@@ -9,5 +9,5 @@ permissions:
   pull-requests: write
 jobs:
   publish:
-    uses: your-org/pr-evidence-gate/.github/workflows/publish.yml@v0.2.0
+    uses: Igadsme/pr-evidence-gate/.github/workflows/publish.yml@main
     secrets: inherit
